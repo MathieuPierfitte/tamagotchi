@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { TamagotchiService } from '../../services/tamagotchi.service';
 
 @Component({
   selector: 'app-navbar',
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavbarComponent implements OnInit {
 
-  constructor() { }
+  names: string[] = [];
+
+  constructor(private tamagotchiService: TamagotchiService) { }
 
   ngOnInit() {
+    this.tamagotchiService.tamagotchisNames
+      .subscribe(n => this.names.push(n));
   }
 
 }
