@@ -1,2 +1,26 @@
 <h1>{{ tamagotchi.name }}</h1>
 <h2>{{ lifeStage }}</h2>
+
+<div *ngIf="tamagotchi.isAlive">
+
+    <div>
+        <button mat-raised-button color="accent" [matMenuTriggerFor]="menu">Feed</button>
+        <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="onFeedMeal()">Meal</button>
+            <button mat-menu-item (click)="onFeedSnack()">Snack</button>
+        </mat-menu>
+    </div>
+
+</div>
+
+<mat-divider></mat-divider>
+
+<div>
+    <mat-checkbox [(ngModel)]="showVitalSigns">Show vital signs</mat-checkbox>
+    <div *ngIf="showVitalSigns">
+        <ul>
+            <li>Hunger meter: {{ tamagotchi.hungerMeter }}</li>
+            <li>Happiness meter: {{ tamagotchi.happinessMeter }}</li>
+        </ul>
+    </div>
+</div>
