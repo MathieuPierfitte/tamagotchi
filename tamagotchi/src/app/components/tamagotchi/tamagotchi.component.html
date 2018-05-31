@@ -13,7 +13,10 @@
             <button mat-menu-item (click)="onFeedSnack()">Snack</button>
         </mat-menu>
         <button *ngIf="!tamagotchi.isSleeping;else wake_up"
-                mat-raised-button color="accent" (click)="onPutToBed()">Put to bed</button>
+                mat-raised-button
+                color="accent"
+                (click)="onPutToBed()"
+                [disabled]="!tamagotchi.canSleep">Put to bed</button>
         <ng-template #wake_up>
             <button mat-raised-button color="accent" (click)="onWakeUp()">Wake up</button>
         </ng-template>

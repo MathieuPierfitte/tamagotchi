@@ -48,6 +48,9 @@ export class TamagotchiController {
     get canBeFed(): boolean {
         return this.isAlive && !this.isSleeping && !this.isPlaying;
     }
+    get canSleep(): boolean {
+        return this.isAlive && !this.isPlaying;
+    }
     get canPlay(): boolean {
         return this.isAlive && !this.isSleeping;
     }
