@@ -7,7 +7,7 @@ export class TamagotchiController {
 
     static TIRED_ENERGY_MARK = 40;
 
-    private intervalId;
+    protected intervalId;
     private cycle = 0;
 
     private babyStart: number;
