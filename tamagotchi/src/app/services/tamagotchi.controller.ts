@@ -15,7 +15,7 @@ export class TamagotchiController {
     private adultStart: number;
     private naturalDeath: number;
     private isDead = false;
-    private causeOfDeath?: string;
+    causeOfDeath?: string;
     get lifeStage(): LifeStage {
         if (this.isDead) {
             return LifeStage.Dead;
