@@ -122,7 +122,7 @@ export class TamagotchiController {
     }
 
     private keepPlaying(): boolean {
-        return Random.boolean(80);
+        return Random.boolean(90);
     }
 
     private die(causeOfDeath: string) {
