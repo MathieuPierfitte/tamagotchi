@@ -2,5 +2,6 @@ export enum LifeStage {
     Egg,
     Baby,
     Child,
-    Adult
+    Adult,
+    Dead
 }

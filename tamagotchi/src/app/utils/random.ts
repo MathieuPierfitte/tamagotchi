@@ -10,4 +10,8 @@ export class Random {
         return (Math.random() / CYCLES_PER_SEC) * coefficient;
     }
 
+    static boolean(trueProbabilityPercentage: number): boolean {
+        return Math.random() * 100 < trueProbabilityPercentage;
+    }
+
 }

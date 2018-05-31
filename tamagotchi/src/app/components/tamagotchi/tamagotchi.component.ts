@@ -27,6 +27,8 @@ export class TamagotchiComponent {
         return 'Child';
       case LifeStage.Adult:
         return 'Adult';
+      case LifeStage.Dead:
+        return 'Dead';
     }
   }
 
