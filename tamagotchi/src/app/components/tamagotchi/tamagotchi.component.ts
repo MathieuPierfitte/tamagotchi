@@ -93,13 +93,17 @@ export class TamagotchiComponent {
 
   constructor(
     route: ActivatedRoute,
-    router: Router,
-    tamagotchiService: TamagotchiService,
+    private router: Router,
+    private tamagotchiService: TamagotchiService,
     private snackBar: MatSnackBar
   ) {
-    this.tamagotchi = tamagotchiService.get(route.snapshot.params.name);
+    route.params.subscribe(p => this.loadTamagotchi(p.name));
+  }
+
+  private loadTamagotchi(name: string) {
+    this.tamagotchi = this.tamagotchiService.get(name);
     if (!this.tamagotchi) {
-      router.navigate(['/']);
+      this.router.navigate(['/']);
     }
   }
 
