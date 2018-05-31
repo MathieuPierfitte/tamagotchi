@@ -1,7 +1,31 @@
-<h1>{{ tamagotchi.name }}</h1>
-<h2>{{ lifeStage }}</h2>
-<h3 *ngIf="tamagotchi.causeOfDeath">Cause of death: {{ tamagotchi.causeOfDeath }}</h3>
-<h3>Poops: {{ tamagotchi.poopsCount }}</h3>
+<mat-card>
+    <mat-card-title>{{ tamagotchi.name }}</mat-card-title>
+    <mat-card-content>
+        <table>
+            <tr>
+                <td>
+                    <span class="huge emoji">{{ lifeStage }}</span>
+                </td>
+                <td>
+                    <table>
+                        <tr>
+                            <td>
+                                <span class="big emoji">{{ awakenStatus }}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span class="big emoji">{{ moodStatus }}</span>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+        <div class="big emoji">{{ poops }}</div>
+        <div *ngIf="tamagotchi.causeOfDeath">Cause of death: {{ tamagotchi.causeOfDeath }}</div>
+    </mat-card-content>
+</mat-card>
 
 <div *ngIf="tamagotchi.isAlive">
 

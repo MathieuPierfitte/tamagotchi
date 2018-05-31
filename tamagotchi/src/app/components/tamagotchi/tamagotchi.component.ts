@@ -20,16 +20,75 @@ export class TamagotchiComponent {
   get lifeStage(): string {
     switch (this.tamagotchi.lifeStage) {
       case LifeStage.Egg:
-        return 'Egg';
+        return '🥚';
       case LifeStage.Baby:
-        return 'Baby';
+        return '👶';
       case LifeStage.Child:
-        return 'Child';
+        return '👦';
       case LifeStage.Adult:
-        return 'Adult';
+        return '🧔';
       case LifeStage.Dead:
-        return 'Dead';
+        return '👻';
     }
+  }
+
+  get awakenStatus(): string {
+    if (this.tamagotchi.isAlive) {
+      if (this.tamagotchi.isSleeping) {
+        return '🌙';
+      } else {
+        return this.tamagotchi.energy > 50 ? '☀️' : '😴';
+      }
+    } else {
+      return null;
+    }
+  }
+
+  get moodStatus(): string {
+    if (this.tamagotchi.isAlive) {
+      const hungerStatus = this.hungerStatus;
+      return this.happinessStatus + (hungerStatus ? ` ${this.hungerStatus}` : '');
+    } else {
+      return null;
+    }
+  }
+
+  private get happinessStatus(): string {
+    if (this.tamagotchi.isPlaying) {
+      return '⚽️';
+    } else {
+      const h = this.tamagotchi.happinessMeter;
+      switch (true) {
+        case (h > 50):
+          return '😃';
+        case (h > 20):
+          return '🙂';
+        case (h > -20):
+          return '😐';
+        case (h > -50):
+          return '🙁';
+        default:
+          return '☹️';
+      }
+    }
+  }
+
+  private get hungerStatus(): string {
+    const h = this.tamagotchi.hungerMeter;
+    switch (true) {
+      case (h > 40):
+        return '🤤';
+      case (h < -60):
+        return '🤮';
+      case (h < -30):
+        return '🤢';
+      default:
+        return null;
+    }
+  }
+
+  get poops(): string {
+    return Array(this.tamagotchi.poopsCount).fill('💩').join('');
   }
 
   constructor(

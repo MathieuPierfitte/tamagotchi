@@ -1,3 +1,15 @@
 mat-divider {
     margin: 8px 0px;
 }
+
+.huge {
+    font-size: 126px;
+}
+
+.big {
+    font-size: 32px;
+}
+
+.emoji {
+    line-height: 2;
+}
