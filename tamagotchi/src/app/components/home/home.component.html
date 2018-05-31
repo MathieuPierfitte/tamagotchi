@@ -1,3 +1,7 @@
+<h1>Welcome back to the 90's!</h1>
+
+<p>Here you can create as many Tamagotchis as you want!</p>
+<p>Simply choose a great name for your Tamagotchi and press enter:</p>
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
   <mat-form-field>
     <input type="text" matInput formControlName="name" placeholder="New Tamagotchi" autofocus required>
@@ -7,3 +11,56 @@
   </mat-form-field>
   <button type="submit" mat-button [disabled]="form.pristine || form.invalid">Create</button>
 </form>
+
+<mat-divider></mat-divider>
+
+<h2>Rules</h2>
+
+<p>Your Tamagotchi will start as an Egg. After a short amount of time, your newborn will be there, asking you to take care of him.</p>
+<p>Your goal is to keep him alive for as long as possible. To do so:</p>
+<ul>
+  <li>Make sure he is rested. Otherwise, he might fall asleep all of a sudden. Or die.</li>
+  <li>Feed him when he is hungry... But not too much, or you will have tons of poop to clean.</li>
+  <li>Keep him entertained. You do not want him to get bored to death.</li>
+</ul>
+
+<p>If you feel up to the task, you may even create several Tamagotchis at the same time.</p>
+
+<mat-card>
+
+  <h2>Legend</h2>
+
+  <h3>Age</h3>
+  <ul>
+    <li>🥚 This is an egg. Your baby shall arrive soon.</li>
+    <li>👶 Age: not much.</li>
+    <li>👦 Child.</li>
+    <li>🧔 Adult.</li>
+    <li>👻 Dead... Check the cause of death to see if you did a good job.</li>
+  </ul>
+
+  <h3>Awaken status</h3>
+  <ul>
+    <li>☀️ Awaken.</li>
+    <li>😴 Feeling sleepy.</li>
+    <li>🌙 Sleeping, whether because he decided to or because you put him to bed.</li>
+  </ul>
+
+  <h3>Happiness</h3>
+  <ul>
+    <li>⚽️ He is playing. He should be happier when he is finished. Unless you force him to stop...</li>
+    <li>😃 So happy!</li>
+    <li>🙂 Feeling pretty good.</li>
+    <li>😐 Not happy, but not unhappy.</li>
+    <li>🙁 Could do better</li>
+    <li>☹️ You really need to start paying attention.</li>
+  </ul>
+
+  <h3>Hunger status</h3>
+  <ul>
+    <li>🤤 Hungry: Feed him a snack or a nice meal.</li>
+    <li>🤢 Stop feeding him before it is too late.</li>
+    <li>🤮 Refer to the previous line.</li>
+  </ul>
+
+</mat-card>
