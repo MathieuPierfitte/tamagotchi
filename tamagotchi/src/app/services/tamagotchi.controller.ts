@@ -54,7 +54,15 @@ export class TamagotchiController {
             this._hungerMeter = Math.min(Math.max(hungerMeter, -100), 100);
         }
     }
-    happinessMeter = 0; // (-inf;+inf)
+    private _happinessMeter = 0; // [-100;100]
+    get happinessMeter(): number { return this._happinessMeter; }
+    set happinessMeter(happinessMeter: number) {
+        if (happinessMeter <= -100) {
+            this.die('boredom');
+        } else {
+            this._happinessMeter = Math.min(happinessMeter, 100);
+        }
+    }
     poopsCount = 0;
 
     get canBeFed(): boolean {
