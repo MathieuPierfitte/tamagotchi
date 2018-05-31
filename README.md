@@ -1,6 +1,9 @@
 # Tamagotchi
 By Mathieu Pierfitte
 
+## Deployed client
+At the time of this writing, the client is available for testing [here](http://tamagotchi-mpierfitte.ac4rsu4pbp.ap-southeast-2.elasticbeanstalk.com)
+
 ## Installation
 This project is an Angular webapp written in Typescript.
 * First, [install Node.js and npm](https://nodejs.org/en/download/)
