@@ -71,4 +71,8 @@ export class TamagotchiComponent {
     this.tamagotchi.stopPlaying();
   }
 
+  onCleanPoop() {
+    this.tamagotchi.cleanPoop();
+  }
+
 }

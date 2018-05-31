@@ -44,6 +44,7 @@ export class TamagotchiController {
     }
     hungerMeter = 0; // (-inf;+inf)
     happinessMeter = 0; // (-inf;+inf)
+    poopsCount = 0;
 
     get canBeFed(): boolean {
         return this.isAlive && !this.isSleeping && !this.isPlaying;
@@ -53,6 +54,9 @@ export class TamagotchiController {
     }
     get canPlay(): boolean {
         return this.isAlive && !this.isSleeping;
+    }
+    get canCleanPoop(): boolean {
+        return this.poopsCount > 0;
     }
 
     constructor(readonly name: string) {
@@ -64,19 +68,25 @@ export class TamagotchiController {
 
     private step() {
         this.cycle++;
-        if (this.isSleeping) {
-            this.energy += Random.standard(5);
-            this.isSleeping = !this.spontaneousWakeUp();
-        } else if (this.isPlaying) {
-            this.energy -= Random.standard(this.lifeStage === LifeStage.Child ? 6 : 3);
-            this.happinessMeter += Random.standard(5);
-            this.isPlaying = this.keepPlaying();
-        } else {
-            this.energy -= Random.standard(this.lifeStage === LifeStage.Child ? 4 : 2);
-            this.happinessMeter -= Random.standard();
-            this.isSleeping = this.fallAsleep();
+        if (this.isAlive) {
+            if (this.isSleeping) {
+                this.energy += Random.standard(5);
+                this.isSleeping = !this.spontaneousWakeUp();
+            } else if (this.isPlaying) {
+                this.energy -= Random.standard(this.lifeStage === LifeStage.Child ? 6 : 3);
+                this.happinessMeter += Random.standard(5);
+                this.isPlaying = this.keepPlaying();
+            } else {
+                this.energy -= Random.standard(this.lifeStage === LifeStage.Child ? 4 : 2);
+                this.happinessMeter -= Random.standard();
+                this.isSleeping = this.fallAsleep();
+                if (Random.boolean(-this.hungerMeter / 5)) {
+                    this.poopsCount++;
+                }
+            }
+            this.hungerMeter += Random.standard(this.isPlaying ? 2 : 1);
+            this.happinessMeter -= this.poopsCount / 2;
         }
-        this.hungerMeter += Random.standard(this.isPlaying ? 2 : 1);
     }
 
     private spontaneousWakeUp(): boolean {
@@ -130,6 +140,10 @@ export class TamagotchiController {
     stopPlaying() {
         this.happinessMeter -= 15;
         this.isPlaying = false;
+    }
+
+    cleanPoop() {
+        this.poopsCount--;
     }
 
 }
