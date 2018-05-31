@@ -11,6 +11,7 @@ export class TamagotchiController {
     private babyStart: number;
     private childStart: number;
     private adultStart: number;
+    private naturalDeath: number;
     private isDead = false;
     private causeOfDeath?: string;
     get lifeStage(): LifeStage {
@@ -82,11 +83,15 @@ export class TamagotchiController {
         this.babyStart = Random.between(5, 10);
         this.childStart = Random.between(this.babyStart + 30, this.babyStart + 60);
         this.adultStart = Random.between(this.childStart + 60, this.childStart + 120);
+        this.naturalDeath = Random.between(this.adultStart + 180, this.adultStart + 600);
         this.intervalId = setInterval(() => this.step(), CYCLE_DURATION_MS);
     }
 
     private step() {
         this.cycle++;
+        if (this.cycle > this.naturalDeath) {
+            this.die('natural death');
+        }
         if (this.isAlive) {
             if (this.isSleeping) {
                 this.energy += Random.standard(5);
