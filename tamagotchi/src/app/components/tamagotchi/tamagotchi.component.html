@@ -14,6 +14,11 @@
         <ng-template #wake_up>
             <button mat-raised-button color="accent" (click)="onWakeUp()">Wake up</button>
         </ng-template>
+        <button *ngIf="!tamagotchi.isPlaying;else stop_playing"
+                mat-raised-button color="accent" (click)="onStartPlaying()">Start playing</button>
+        <ng-template #stop_playing>
+            <button mat-raised-button color="accent" (click)="onStopPlaying()">Stop playing</button>
+        </ng-template>
     </div>
 
 </div>

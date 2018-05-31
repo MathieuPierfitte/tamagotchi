@@ -63,4 +63,12 @@ export class TamagotchiComponent {
     this.tamagotchi.wakeUp();
   }
 
+  onStartPlaying() {
+    this.tamagotchi.startPlaying();
+  }
+
+  onStopPlaying() {
+    this.tamagotchi.stopPlaying();
+  }
+
 }

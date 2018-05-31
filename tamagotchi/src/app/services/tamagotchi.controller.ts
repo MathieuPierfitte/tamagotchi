@@ -27,10 +27,11 @@ export class TamagotchiController {
     }
 
     get isAlive(): boolean {
-        return this.lifeStage !== LifeStage.Egg;
+        return this.lifeStage !== LifeStage.Egg && this.lifeStage !== LifeStage.Dead;
     }
 
     isSleeping = false;
+    isPlaying = false;
 
     private _energy = 100; // [0;100]
     get energy(): number { return this._energy; }
@@ -53,17 +54,19 @@ export class TamagotchiController {
 
     private step() {
         this.cycle++;
-        if (this.isAlive) {
-            if (this.isSleeping) {
-                this.energy += Random.standard(5);
-                this.isSleeping = !this.spontaneousWakeUp();
-            } else {
-                this.energy -= Random.standard(this.lifeStage === LifeStage.Child ? 5 : 2);
-                this.happinessMeter -= Random.standard();
-                this.isSleeping = this.fallAsleep();
-            }
-            this.hungerMeter += Random.standard();
+        if (this.isSleeping) {
+            this.energy += Random.standard(5);
+            this.isSleeping = !this.spontaneousWakeUp();
+        } else if (this.isPlaying) {
+            this.energy -= Random.standard(this.lifeStage === LifeStage.Child ? 6 : 3);
+            this.happinessMeter += Random.standard(5);
+            this.isPlaying = this.keepPlaying();
+        } else {
+            this.energy -= Random.standard(this.lifeStage === LifeStage.Child ? 4 : 2);
+            this.happinessMeter -= Random.standard();
+            this.isSleeping = this.fallAsleep();
         }
+        this.hungerMeter += Random.standard(this.isPlaying ? 2 : 1);
     }
 
     private spontaneousWakeUp(): boolean {
@@ -72,6 +75,10 @@ export class TamagotchiController {
 
     private fallAsleep(): boolean {
         return Random.boolean((30 - this.energy) * 2);
+    }
+
+    private keepPlaying(): boolean {
+        return Random.boolean(80);
     }
 
     private die() {
@@ -104,6 +111,15 @@ export class TamagotchiController {
             this.happinessMeter -= 30;
         }
         this.isSleeping = false;
+    }
+
+    startPlaying() {
+        this.isPlaying = true;
+    }
+
+    stopPlaying() {
+        this.happinessMeter -= 15;
+        this.isPlaying = false;
     }
 
 }
