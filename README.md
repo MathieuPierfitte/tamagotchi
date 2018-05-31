@@ -14,7 +14,7 @@ This project is an Angular webapp written in Typescript.
 Run the client by opening a Terminal and typing:
 
 ```
-cd <SOURCE_CODE_PATH>/client
+cd <SOURCE_CODE_PATH>/tamagotchi
 ng serve --open
 ```
 After a few seconds, a browser window should open and go to http://localhost:4200
