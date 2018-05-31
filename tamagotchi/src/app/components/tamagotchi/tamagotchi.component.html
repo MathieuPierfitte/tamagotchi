@@ -9,6 +9,11 @@
             <button mat-menu-item (click)="onFeedMeal()">Meal</button>
             <button mat-menu-item (click)="onFeedSnack()">Snack</button>
         </mat-menu>
+        <button *ngIf="!tamagotchi.isSleeping;else wake_up"
+                mat-raised-button color="accent" (click)="onPutToBed()">Put to bed</button>
+        <ng-template #wake_up>
+            <button mat-raised-button color="accent" (click)="onWakeUp()">Wake up</button>
+        </ng-template>
     </div>
 
 </div>
@@ -19,6 +24,7 @@
     <mat-checkbox [(ngModel)]="showVitalSigns">Show vital signs</mat-checkbox>
     <div *ngIf="showVitalSigns">
         <ul>
+            <li>Energy: {{ tamagotchi.energy }}</li>
             <li>Hunger meter: {{ tamagotchi.hungerMeter }}</li>
             <li>Happiness meter: {{ tamagotchi.happinessMeter }}</li>
         </ul>

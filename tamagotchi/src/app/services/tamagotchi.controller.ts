@@ -26,8 +26,12 @@ export class TamagotchiController {
         return this.lifeStage !== LifeStage.Egg;
     }
 
-    hungerMeter = 0;
+    isSleeping = false;
 
+    private _energy = 100;
+    get energy(): number { return this._energy; }
+    set energy(energy: number) { this._energy = Math.min(energy, 100); }
+    hungerMeter = 0;
     happinessMeter = 0;
 
     constructor(readonly name: string) {
@@ -40,14 +44,41 @@ export class TamagotchiController {
     private step() {
         this.cycle++;
         if (this.isAlive) {
+            if (this.isSleeping) {
+                this.energy += Random.standard(5);
+            } else {
+                this.energy -= Random.standard(this.lifeStage === LifeStage.Child ? 5 : 2);
+                this.happinessMeter -= Random.standard();
+            }
             this.hungerMeter += Random.standard();
-            this.happinessMeter -= Random.standard();
         }
     }
 
     feed(foodType: FoodType) {
-        this.hungerMeter -= foodType === FoodType.Meal ? 30 : 5;
-        this.happinessMeter += foodType === FoodType.Meal ? 10 : 20;
+        if (foodType === FoodType.Meal) {
+            this.energy += 10;
+            this.hungerMeter -= 30;
+            this.happinessMeter += 10;
+        } else {
+            this.energy += 5;
+            this.hungerMeter -= 5;
+            this.happinessMeter += 20;
+        }
+    }
+
+    putToBed() {
+        if (this.energy < 40) {
+            this.isSleeping = true;
+        } else {
+            this.happinessMeter -= 10;
+        }
+    }
+
+    wakeUp() {
+        if (this.energy < 75) {
+            this.happinessMeter -= 30;
+        }
+        this.isSleeping = false;
     }
 
 }

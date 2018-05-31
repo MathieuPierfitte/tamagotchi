@@ -1,16 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { TamagotchiService } from '../../services/tamagotchi.service';
 import { TamagotchiController } from '../../services/tamagotchi.controller';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LifeStage } from '../../model/life-stage';
 import { FoodType } from '../../model/food-type';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-tamagotchi',
   templateUrl: './tamagotchi.component.html',
   styleUrls: ['./tamagotchi.component.css']
 })
-export class TamagotchiComponent implements OnInit {
+export class TamagotchiComponent {
 
   tamagotchi: TamagotchiController;
 
@@ -32,7 +33,8 @@ export class TamagotchiComponent implements OnInit {
   constructor(
     route: ActivatedRoute,
     router: Router,
-    tamagotchiService: TamagotchiService
+    tamagotchiService: TamagotchiService,
+    private snackBar: MatSnackBar
   ) {
     this.tamagotchi = tamagotchiService.get(route.snapshot.params.name);
     if (!this.tamagotchi) {
@@ -48,7 +50,15 @@ export class TamagotchiComponent implements OnInit {
     this.tamagotchi.feed(FoodType.Snack);
   }
 
-  ngOnInit() {
+  onPutToBed() {
+    this.tamagotchi.putToBed();
+    if (!this.tamagotchi.isSleeping) {
+      this.snackBar.open(`Woops! It looks like ${this.tamagotchi.name} didn't want to go to bed!`, null, { duration: 2000 });
+    }
+  }
+
+  onWakeUp() {
+    this.tamagotchi.wakeUp();
   }
 
 }
