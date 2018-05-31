@@ -37,7 +37,7 @@ export class TamagotchiComponent {
       if (this.tamagotchi.isSleeping) {
         return '🌙';
       } else {
-        return this.tamagotchi.energy > 50 ? '☀️' : '😴';
+        return this.tamagotchi.energy > TamagotchiController.TIRED_ENERGY_MARK ? '☀️' : '😴';
       }
     } else {
       return null;

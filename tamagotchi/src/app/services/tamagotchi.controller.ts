@@ -5,6 +5,8 @@ import { FoodType } from '../model/food-type';
 
 export class TamagotchiController {
 
+    static TIRED_ENERGY_MARK = 40;
+
     private intervalId;
     private cycle = 0;
 
@@ -144,7 +146,7 @@ export class TamagotchiController {
     }
 
     putToBed() {
-        if (this.energy < 40) {
+        if (this.energy < TamagotchiController.TIRED_ENERGY_MARK) {
             this.isSleeping = true;
         } else {
             this.happinessMeter -= 10;
