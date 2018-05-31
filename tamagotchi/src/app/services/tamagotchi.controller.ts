@@ -45,6 +45,10 @@ export class TamagotchiController {
     hungerMeter = 0; // (-inf;+inf)
     happinessMeter = 0; // (-inf;+inf)
 
+    get canBeFed(): boolean {
+        return this.isAlive && !this.isSleeping && !this.isPlaying;
+    }
+
     constructor(readonly name: string) {
         this.babyStart = Random.between(5, 10);
         this.childStart = Random.between(this.babyStart + 30, this.babyStart + 60);

@@ -4,7 +4,10 @@
 <div *ngIf="tamagotchi.isAlive">
 
     <div>
-        <button mat-raised-button color="accent" [matMenuTriggerFor]="menu">Feed</button>
+        <button mat-raised-button
+                color="accent"
+                [matMenuTriggerFor]="menu"
+                [disabled]="!tamagotchi.canBeFed">Feed</button>
         <mat-menu #menu="matMenu">
             <button mat-menu-item (click)="onFeedMeal()">Meal</button>
             <button mat-menu-item (click)="onFeedSnack()">Snack</button>
