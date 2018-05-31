@@ -112,6 +112,7 @@ export class TamagotchiController {
             }
             this.hungerMeter += Random.standard(this.isPlaying ? 2 : 1);
             this.happinessMeter -= this.poopsCount / 2;
+            this.energy -= Math.max(this.hungerMeter / 50, 0);
         }
     }
 
