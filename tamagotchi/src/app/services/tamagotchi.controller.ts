@@ -12,6 +12,7 @@ export class TamagotchiController {
     private childStart: number;
     private adultStart: number;
     private isDead = false;
+    private causeOfDeath?: string;
     get lifeStage(): LifeStage {
         if (this.isDead) {
             return LifeStage.Dead;
@@ -37,12 +38,22 @@ export class TamagotchiController {
     get energy(): number { return this._energy; }
     set energy(energy: number) {
         if (energy <= 0) {
-            this.die();
+            this.die('exhaustion');
         } else {
             this._energy = Math.min(energy, 100);
         }
     }
-    hungerMeter = 0; // (-inf;+inf)
+    private _hungerMeter = 0; // [-100;100]
+    get hungerMeter(): number { return this._hungerMeter; }
+    set hungerMeter(hungerMeter: number) {
+        if (hungerMeter <= -100) {
+            this.die('over feeding');
+        } else if (hungerMeter >= 100) {
+            this.die('hunger');
+        } else {
+            this._hungerMeter = Math.min(Math.max(hungerMeter, -100), 100);
+        }
+    }
     happinessMeter = 0; // (-inf;+inf)
     poopsCount = 0;
 
@@ -101,9 +112,10 @@ export class TamagotchiController {
         return Random.boolean(80);
     }
 
-    private die() {
+    private die(causeOfDeath: string) {
         clearInterval(this.intervalId);
         this.isDead = true;
+        this.causeOfDeath = causeOfDeath;
     }
 
     feed(foodType: FoodType) {

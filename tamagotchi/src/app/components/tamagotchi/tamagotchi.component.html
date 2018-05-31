@@ -1,5 +1,6 @@
 <h1>{{ tamagotchi.name }}</h1>
 <h2>{{ lifeStage }}</h2>
+<h3 *ngIf="tamagotchi.causeOfDeath">Cause of death: {{ tamagotchi.causeOfDeath }}</h3>
 <h3>Poops: {{ tamagotchi.poopsCount }}</h3>
 
 <div *ngIf="tamagotchi.isAlive">
