@@ -1,0 +1,76 @@
+<mat-card>
+    <mat-card-title>{{ tamagotchi.name }}</mat-card-title>
+    <mat-card-content>
+        <table>
+            <tr>
+                <td>
+                    <span class="huge emoji">{{ lifeStage }}</span>
+                </td>
+                <td>
+                    <table>
+                        <tr>
+                            <td>
+                                <span class="big emoji">{{ awakenStatus }}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span class="big emoji">{{ moodStatus }}</span>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+        <div class="big emoji">{{ poops }}</div>
+        <div *ngIf="tamagotchi.causeOfDeath">Cause of death: {{ tamagotchi.causeOfDeath }}</div>
+    </mat-card-content>
+</mat-card>
+
+<div *ngIf="tamagotchi.isAlive">
+
+    <div>
+        <button mat-raised-button
+                color="accent"
+                [matMenuTriggerFor]="menu"
+                [disabled]="!tamagotchi.canBeFed">Feed</button>
+        <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="onFeedMeal()">Meal</button>
+            <button mat-menu-item (click)="onFeedSnack()">Snack</button>
+        </mat-menu>
+        <button *ngIf="!tamagotchi.isSleeping;else wake_up"
+                mat-raised-button
+                color="accent"
+                (click)="onPutToBed()"
+                [disabled]="!tamagotchi.canSleep">Put to bed</button>
+        <ng-template #wake_up>
+            <button mat-raised-button color="accent" (click)="onWakeUp()">Wake up</button>
+        </ng-template>
+        <button *ngIf="!tamagotchi.isPlaying;else stop_playing"
+                mat-raised-button
+                color="accent"
+                (click)="onStartPlaying()"
+                [disabled]="!tamagotchi.canPlay">Start playing</button>
+        <ng-template #stop_playing>
+            <button mat-raised-button color="accent" (click)="onStopPlaying()">Stop playing</button>
+        </ng-template>
+        <button mat-raised-button
+                color="accent"
+                (click)="onCleanPoop()"
+                [disabled]="!tamagotchi.canCleanPoop">Clean poop</button>
+    </div>
+
+</div>
+
+<mat-divider></mat-divider>
+
+<div>
+    <mat-checkbox [(ngModel)]="showVitalSigns">Show vital signs</mat-checkbox>
+    <div *ngIf="showVitalSigns">
+        <ul>
+            <li>Energy: {{ tamagotchi.energy }}</li>
+            <li>Hunger meter: {{ tamagotchi.hungerMeter }}</li>
+            <li>Happiness meter: {{ tamagotchi.happinessMeter }}</li>
+        </ul>
+    </div>
+</div>

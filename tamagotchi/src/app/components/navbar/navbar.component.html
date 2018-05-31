@@ -1,0 +1,4 @@
+<mat-toolbar color="primary">
+    <button mat-button routerLink="/">Home</button>
+    <button mat-button *ngFor="let name of names" routerLink="/{{ name }}">{{ name }}</button>
+</mat-toolbar>
