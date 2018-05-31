@@ -18,4 +18,8 @@ export class TamagotchiService {
     this.tamagotchisNames.next(name);
   }
 
+  get(name?: string): TamagotchiController {
+    return this.controllers[name];
+  }
+
 }
