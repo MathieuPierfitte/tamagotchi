@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
+import { Component } from '@angular/core';
+import { FormGroup, FormBuilder, FormControl, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
 import { TamagotchiService } from '../../services/tamagotchi.service';
 import { Router } from '@angular/router';
 
@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent {
 
   form: FormGroup;
 
@@ -17,14 +17,29 @@ export class HomeComponent implements OnInit {
   }
 
   constructor(
-    private fb: FormBuilder,
+    fb: FormBuilder,
     private tamagotchiService: TamagotchiService,
-    private router: Router) { }
-
-  ngOnInit() {
-    this.form = this.fb.group({
-      name: []
+    private router: Router
+  ) {
+    this.form = fb.group({
+      name: [null, [Validators.required, this.acceptableCharactersValidator(), this.nameAvailableValidator()]]
     });
+  }
+
+  private acceptableCharactersValidator(): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: any } => {
+      if (control.value && (control.value as string).trim().length === 0) {
+        return { invalid: true };
+      } else {
+        return { };
+      }
+    };
+  }
+
+  private nameAvailableValidator(): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: any } => {
+      return this.tamagotchiService.get(control.value) == null ? { } : { conflict: true };
+    };
   }
 
   onSubmit() {

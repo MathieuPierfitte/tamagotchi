@@ -1,6 +1,9 @@
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
   <mat-form-field>
-    <input type="text" matInput formControlName="name" placeholder="New Tamagotchi" autofocus>
+    <input type="text" matInput formControlName="name" placeholder="New Tamagotchi" autofocus required>
+    <mat-error *ngIf="nameControl.errors && nameControl.errors.required">Name is required.</mat-error>
+    <mat-error *ngIf="nameControl.errors && nameControl.errors.invalid">Name is invalid.</mat-error>
+    <mat-error *ngIf="nameControl.errors && nameControl.errors.conflict">Name is already in use.</mat-error>
   </mat-form-field>
-  <button type="submit" mat-button>Create</button>
+  <button type="submit" mat-button [disabled]="form.pristine || form.invalid">Create</button>
 </form>
