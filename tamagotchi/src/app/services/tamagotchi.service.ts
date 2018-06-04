@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { TamagotchiController } from './tamagotchi.controller';
+import { TamagotchiController } from '../controller/tamagotchi.controller';
 import { Subject } from 'rxjs';
 
 @Injectable({

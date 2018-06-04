@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { TamagotchiService } from '../../services/tamagotchi.service';
-import { TamagotchiController } from '../../services/tamagotchi.controller';
+import { TamagotchiController } from '../../controller/tamagotchi.controller';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LifeStage } from '../../model/life-stage';
 import { FoodType } from '../../model/food-type';
