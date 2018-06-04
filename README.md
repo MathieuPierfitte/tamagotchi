@@ -1,6 +1,9 @@
 # Tamagotchi
 By Mathieu Pierfitte
 
+## Deployed client
+At the time of this writing, the client is available for testing [here](http://tamagotchi-mpierfitte.ac4rsu4pbp.ap-southeast-2.elasticbeanstalk.com)
+
 ## Installation
 This project is an Angular webapp written in Typescript.
 * First, [install Node.js and npm](https://nodejs.org/en/download/)
@@ -11,7 +14,7 @@ This project is an Angular webapp written in Typescript.
 Run the client by opening a Terminal and typing:
 
 ```
-cd <SOURCE_CODE_PATH>/client
+cd <SOURCE_CODE_PATH>/tamagotchi
 ng serve --open
 ```
 After a few seconds, a browser window should open and go to http://localhost:4200
