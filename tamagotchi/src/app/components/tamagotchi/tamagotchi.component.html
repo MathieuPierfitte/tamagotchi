@@ -23,7 +23,7 @@
             </tr>
         </table>
         <div class="big emoji">{{ poops }}</div>
-        <div *ngIf="tamagotchi.causeOfDeath">Cause of death: {{ tamagotchi.causeOfDeath }}</div>
+        <div *ngIf="tamagotchi.state.causeOfDeath">Cause of death: {{ tamagotchi.state.causeOfDeath }}</div>
     </mat-card-content>
 </mat-card>
 
@@ -38,7 +38,7 @@
             <button mat-menu-item (click)="onFeedMeal()">Meal</button>
             <button mat-menu-item (click)="onFeedSnack()">Snack</button>
         </mat-menu>
-        <button *ngIf="!tamagotchi.isSleeping;else wake_up"
+        <button *ngIf="!tamagotchi.state.isSleeping;else wake_up"
                 mat-raised-button
                 color="accent"
                 (click)="onPutToBed()"
@@ -46,7 +46,7 @@
         <ng-template #wake_up>
             <button mat-raised-button color="accent" (click)="onWakeUp()">Wake up</button>
         </ng-template>
-        <button *ngIf="!tamagotchi.isPlaying;else stop_playing"
+        <button *ngIf="!tamagotchi.state.isPlaying;else stop_playing"
                 mat-raised-button
                 color="accent"
                 (click)="onStartPlaying()"
@@ -68,9 +68,9 @@
     <mat-checkbox [(ngModel)]="showVitalSigns">Show vital signs</mat-checkbox>
     <div *ngIf="showVitalSigns">
         <ul>
-            <li>Energy: {{ tamagotchi.energy }}</li>
-            <li>Hunger meter: {{ tamagotchi.hungerMeter }}</li>
-            <li>Happiness meter: {{ tamagotchi.happinessMeter }}</li>
+            <li>Energy: {{ tamagotchi.state.energy }}</li>
+            <li>Hunger meter: {{ tamagotchi.state.hunger }}</li>
+            <li>Happiness meter: {{ tamagotchi.state.happiness }}</li>
         </ul>
     </div>
 </div>
