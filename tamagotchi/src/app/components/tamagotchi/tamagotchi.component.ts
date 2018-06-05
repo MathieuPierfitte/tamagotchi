@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { LifeStage } from '../../model/life-stage';
 import { FoodType } from '../../model/food-type';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { TIRED_ENERGY_MARK } from '../../configuration';
 
 @Component({
   selector: 'app-tamagotchi',
@@ -18,7 +19,7 @@ export class TamagotchiComponent {
   showVitalSigns = false;
 
   get lifeStage(): string {
-    switch (this.tamagotchi.lifeStage) {
+    switch (this.tamagotchi.state.lifeStage) {
       case LifeStage.Egg:
         return '🥚';
       case LifeStage.Baby:
@@ -34,10 +35,10 @@ export class TamagotchiComponent {
 
   get awakenStatus(): string {
     if (this.tamagotchi.isAlive) {
-      if (this.tamagotchi.isSleeping) {
+      if (this.tamagotchi.state.isSleeping) {
         return '🌙';
       } else {
-        return this.tamagotchi.energy > TamagotchiController.TIRED_ENERGY_MARK ? '☀️' : '😴';
+        return this.tamagotchi.state.energy > TIRED_ENERGY_MARK ? '☀️' : '😴';
       }
     } else {
       return null;
@@ -54,10 +55,10 @@ export class TamagotchiComponent {
   }
 
   private get happinessStatus(): string {
-    if (this.tamagotchi.isPlaying) {
+    if (this.tamagotchi.state.isPlaying) {
       return '⚽️';
     } else {
-      const h = this.tamagotchi.happinessMeter;
+      const h = this.tamagotchi.state.happiness;
       switch (true) {
         case (h > 50):
           return '😃';
@@ -74,7 +75,7 @@ export class TamagotchiComponent {
   }
 
   private get hungerStatus(): string {
-    const h = this.tamagotchi.hungerMeter;
+    const h = this.tamagotchi.state.hunger;
     switch (true) {
       case (h > 40):
         return '🤤';
@@ -88,7 +89,7 @@ export class TamagotchiComponent {
   }
 
   get poops(): string {
-    return Array(this.tamagotchi.poopsCount).fill('💩').join('');
+    return Array(this.tamagotchi.state.poopsCount).fill('💩').join('');
   }
 
   constructor(
@@ -117,7 +118,7 @@ export class TamagotchiComponent {
 
   onPutToBed() {
     this.tamagotchi.putToBed();
-    if (!this.tamagotchi.isSleeping) {
+    if (!this.tamagotchi.state.isSleeping) {
       this.snackBar.open(`Woops! It looks like ${this.tamagotchi.name} didn't want to go to bed!`, null, { duration: 2000 });
     }
   }
